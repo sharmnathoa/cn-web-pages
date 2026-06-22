@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线 PG 模拟器 —— 查询、对照与延伸阅读 | 产品介绍</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Helvetica Neue", sans-serif;
+            background: #f1f3f6;
+            color: #1e1f2c;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+        .page-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* hero 区域 */
+        .hero {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 3rem 2.5rem 2.5rem 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e3e7ed;
+            transition: box-shadow 0.2s;
+        }
+        .hero:hover {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
+        .hero .badge {
+            display: inline-block;
+            background: #dce1e9;
+            color: #2e3a4b;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            margin-bottom: 1.2rem;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-bottom: 1rem;
+            color: #0c0f1a;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #3b4350;
+            max-width: 80%;
+            margin-bottom: 0.6rem;
+        }
+        .hero .lead {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            color: #5c6573;
+            border-left: 3px solid #b3c0d2;
+            padding-left: 1rem;
+        }
+
+        /* 卡片通用 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0 1rem 0;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.8rem 1.8rem 2rem 1.8rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e3e8f0;
+            transition: box-shadow 0.18s ease;
+        }
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            border-bottom: 1px solid #eef2f7;
+            padding-bottom: 0.4rem;
+            color: #1c2533;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #2e3746;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card ul li {
+            padding: 0.2rem 0 0.2rem 1.2rem;
+            position: relative;
+        }
+        .card ul li::before {
+            content: "·";
+            position: absolute;
+            left: 2px;
+            color: #7b8aa0;
+            font-weight: bold;
+        }
+
+        /* 使用建议 / 提示区 */
+        .note-section {
+            background: #f7f9fc;
+            border-radius: 18px;
+            padding: 1.8rem 2rem;
+            margin: 2rem 0;
+            border: 1px solid #dbe1ea;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+        .note-section h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1f293b;
+        }
+        .note-section p, .note-section li {
+            color: #30394a;
+            font-size: 0.95rem;
+        }
+        .inline-link {
+            color: #2b5797;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #b2c3da;
+        }
+        .inline-link:hover {
+            border-bottom: 1px solid #2b5797;
+            color: #1b3c6b;
+        }
+
+        /* FAQ 精简 */
+        .faq-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.8rem 0 1rem 0;
+        }
+        .faq-item {
+            background: #ffffff;
+            padding: 0.9rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid #dce2ec;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+        }
+        .faq-item strong {
+            font-weight: 600;
+            color: #0b1a2e;
+            margin-right: 0.5rem;
+        }
+        .faq-item span {
+            color: #374151;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            body { padding: 1.2rem 0.8rem; }
+            .hero { padding: 2rem 1.2rem; }
+            .hero h1 { font-size: 1.7rem; }
+            .hero p { max-width: 100%; }
+            .card-grid { gap: 1.2rem; }
+            .faq-item { border-radius: 20px; padding: 0.7rem 1rem; }
+        }
+        @media (min-width: 900px) {
+            .hero p { max-width: 70%; }
+        }
+        /* 简单分隔 */
+        .separator {
+            height: 1px;
+            background: linear-gradient(to right, #dce2ec, transparent);
+            margin: 0.8rem 0 1.8rem 0;
+        }
+        .footnote {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #747f93;
+            margin-top: 2.5rem;
+            border-top: 1px solid #e3e9f0;
+            padding-top: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- hero —— 产品摘要 -->
+    <div class="hero">
+        <div class="badge">日常查询 · 对照 · 延伸阅读</div>
+        <h1>PG模拟器：轻量查询与对照平台</h1>
+        <p>在编写、调试或回溯 PostgreSQL 相关逻辑时，一个可交互的模拟环境能大幅减少上下文切换。PG模拟器围绕查询验证与结果对照设计，支持快速输入 SQL 片段、观察执行计划梗概，以及对不同写法进行并列比对。</p>
+        <div class="lead">
+            适合需要频繁验证函数行为、索引策略或窗口语义的开发与 DBA 人员，也适合作为学习阶段的辅助沙箱。
+        </div>
+    </div>
+
+    <!-- 亮点卡片 —— 三个方向：查询、对照、延伸 -->
+    <div class="card-grid">
+        <div class="card">
+            <h3>即时查询</h3>
+            <ul>
+                <li>无需本地搭建实例，浏览器内模拟常见 PG 语法</li>
+                <li>支持 SELECT、JOIN、聚合、子查询等核心结构</li>
+                <li>返回模拟结果集与执行步数概览</li>
+                <li>适合验证逻辑正确性，或快速重现文档中的示例</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>并列对照</h3>
+            <ul>
+                <li>将两种写法分别输入左右面板，同时观察输出差异</li>
+                <li>对比索引提示、CTE 展开、DISTINCT 与 GROUP BY 等效性</li>
+                <li>高亮行数差异与结果行变化，辅助推理</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>延伸阅读</h3>
+            <ul>
+                <li>每条查询之后附带相关 PG 文档片段链接</li>
+                <li>根据关键词自动匹配官方手册条目</li>
+                <li>可折叠的上下文解释，减少外部搜索</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 使用建议 + 嵌入链接 -->
+    <div class="note-section">
+        <h2>▎使用建议与边界</h2>
+        <p><strong>起点</strong> —— 将 <a href="https://cn-web-pgsimulator.com" class="inline-link">PG模拟器</a> 作为快速验证台：编写一条带窗口函数的查询，对比 ROWS/RANGE 区别；或者测试不同类型转换的行为。模拟器返回的是近似结果，适用于逻辑预检，不适合作为生产级性能推断依据。</p>
+        <p><strong>对照方法</strong> —— 在左侧面板输入原始查询，右侧面板输入改写版本，观察结果集是否一致。尤其适合检查等价改写（如 EXISTS 与 IN，UNION 与 UNION ALL 的语义差异）。</p>
+        <p><strong>延伸阅读场景</strong> —— 当你对某个语法点不确定时，在模拟器中输入并执行，页面底部的延伸卡片会推荐相关 PG 手册段落。例如输入 <code>LATERAL</code> 子查询，延伸区将展示官方说明摘要。</p>
+        <div style="margin-top: 0.8rem; background: #eef2f8; padding: 0.5rem 1rem; border-radius: 30px; display: inline-block; font-size: 0.9rem;">
+            ⚡ 适合日常 SQL 写作、教程跟随、对比实验；不适合存储过程调试或精确性能测量。
+        </div>
+    </div>
+
+    <!-- FAQ 摘要 —— 三个常见问题 -->
+    <div style="margin: 2rem 0 1rem 0;">
+        <h2 style="font-size: 1.15rem; font-weight: 600; color: #1e2a3d; margin-bottom: 0.8rem;">常见疑问 · 摘要</h2>
+        <div class="faq-mini">
+            <div class="faq-item"><strong>Q:</strong> <span>模拟的 SQL 范围有多广？—— 覆盖 DML 主要子集（SELECT/JOIN/WHERE/GROUP BY/HAVING/WINDOW/CTE），不包含 DDL 持久化及 PL/pgSQL 完整语法。</span></div>
+            <div class="faq-item"><strong>Q:</strong> <span>结果与真实 PG 实例一致吗？—— 核心逻辑基于 PG 语义实现，数据类型、聚合、窗口函数行为经对照测试，但复杂触发器、自定义类型、扩展模块不在模拟范围内。</span></div>
+            <div class="faq-item"><strong>Q:</strong> <span>对照功能支持多少条语句？—— 同时支持两组输入（各不超过 500 字符），对比结果行及异常提示，适合短查询比对。</span></div>
+        </div>
+    </div>
+
+    <!-- 访问说明 —— 可信但克制 -->
+    <div style="background: #ffffff; border-radius: 18px; padding: 1.6rem 2rem; border: 1px solid #e2e8f0; box-shadow: 0 2px 6px rgba(0,0,0,0.02); margin: 1.8rem 0;">
+        <h2 style="font-size: 1.15rem; font-weight: 600; color: #1e293b; margin-bottom: 0.4rem;">访问说明</h2>
+        <p style="color: #2d3849;">PG模拟器运行于静态前端环境，查询在浏览器本地完成模拟，无数据外传。无需注册，不收集个人信息。服务由独立团队维护，与 PostgreSQL 官方无直接关联。如果你需要与生产数据库完全一致的行为验证，建议同时在本地 PG 实例中复测。</p>
+        <p style="margin-top: 0.4rem; color: #4c5a6f;">使用前建议阅读站点内的 <em>已知限制</em> 页面，了解当前版本未覆盖的功能边界。</p>
+    </div>
+
+    <!-- 底部导航/再次嵌入链接 -->
+    <div class="footnote">
+        <span>主站：<a href="https://cn-web-pgsimulator.com" class="inline-link">PG模拟器</a>  ·  基于 Web 的 PostgreSQL 查询模拟 ·  v0.9.2</span>
+    </div>
+
+</div>
+</body>
+</html>
